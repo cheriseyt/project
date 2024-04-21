@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block title %}Apex Athletics{% endblock %}
+{% block page %}Apex Athletics{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<style>
+     body {
+        background-image: url("https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        justify-content: center; /* Centers content horizontally */
+        height: 100vh;
+        background-repeat: no-repeat;
+        align-items: center;
+    }
+
+    .container {
+        width: 100%;
+        padding: 40px 20px;
+        display: flex; /* Add this to make the container a flex container */
+        justify-content: center; /* Centers content horizontally */
+        align-items: center;
+    }
+
+    .signup-box {
+        background-color: rgba(2, 2, 2, 0.6);;
+        padding-top: 10px;
+        padding-left: 80px;
+        padding-right: 80px;
+        padding-bottom: 15px;
+        border-radius: 8px;
+        width: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .signup-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color:#ffffff;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        color:#ffffff;
+    }
+
+    .input-group input,
+    .input-group select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .input-group button {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #ff0000;
+        color: #fff;
+        margin-top: 20px;
+        width: 100%;
+        
+    }
+
+    .input-group button:hover {
+        background-color: #a52929;
+    }
+    
+    .signup-box input[type="text"],
+    .signup-box input[type="password"] {
+        background-color: white; 
+        color: black; 
+        
+    }
+</style>
+   
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h2>Signup</h2>
+            <form action="{{ url_for('auth_views.signup_action') }}" method="post">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="input-group">
+                    <button type="submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock %}

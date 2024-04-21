@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+{% block title %}Apex Athletics{% endblock %}
+{% block page %}Create Routine{% endblock %}
+
+{% block content %}
+<style>
+    .html,body{
+        background-color: black;
+    }
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin-top: 10px;
+        padding: 5px 20px;
+        border-radius: 5px;
+        background-image: radial-gradient(at 88% 40%,
+            rgb(20, 20, 20) 0px,transparent 85% ),
+            radial-gradient(at 49% 30%, rgb(31, 31, 32) 0px, transparent 85%),
+            radial-gradient(at 14% 26%, rgb(37, 37, 39) 0px, transparent 85%),
+            radial-gradient(at 0% 64%, rgb(26, 24, 24) 0px, transparent 85%),
+            radial-gradient(at 41% 94%, rgb(112, 35, 35) 0px, transparent 85%),
+            radial-gradient(at 100% 99%, rgb(252, 59, 59) 0px, transparent 85%);
+    }
+    .card-container {
+        height: 400px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+    }
+    .card {
+        position: relative;
+        overflow: hidden;
+        height: 220px;
+        width: 95%;
+        padding: 10px;
+        margin: 1%;
+        color: rgb(0, 0, 0);
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-size: cover;
+    }
+    .btn-toggle {
+        background-image: linear-gradient(0deg,
+            rgb(97, 16, 16) 0%,
+            rgb(253, 40, 40) 100%);
+        color: #ffffff;
+        border: 1px;
+    }
+    .btn-toggle.active {
+        background-color: #007bff;
+        color: white;
+    }
+    .tag {
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white; 
+        font-weight: 600px;
+        display: inline-block; 
+        padding: 5px 10px; 
+        margin-right: 3px; 
+        border-radius: 5px; 
+        text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);
+    }
+</style>
+
+<body>
+<div class="container">
+    <h1 style="color: white;">Create a New Routine</h1>
+    <form action="{{ url_for('auth_views.createRoutines_action') }}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Routine Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <input type="text" class="form-control" id="description" name="description" required>
+        </div>
+
+        <h4 style="color: white;">Select Workouts:</h4>
+        <div class="card-container">
+            <div class="row">
+                {% for workout in workouts %}
+                <div class="col-md-4 mb-3">
+                    <div class="card" style="background-image: url('{{ workout.image }}');">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: white; font-weight:1000; font-size: 25px; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);">{{ workout.name }}</h5>
+                            <p class="card-text" style="color: white; font-weight:600; font-size: 15px; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);" >{{ workout.description }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="tag">Calories Burned: {{ workout.calories_burned }} Cals</div>
+                                </div>
+                                <div class="col">
+                                    <div class="tag">Duration: {{ workout.duration }} minutes</div>
+                                </div>
+                                <div class="col">
+                                    <div class="tag">Muscle: {{ workout.muscle_group }}</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-toggle" data-id="{{ workout.id }}" onclick="toggleWorkout(this);">
+                                Add to Routine
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <input type="hidden" id="selectedWorkouts" name="workout_ids">
+        <button type="submit" class="btn btn-primary" style=" background-image: linear-gradient(0deg, rgb(97, 16, 16) 0%, rgb(253, 40, 40) 100%);">Create Routine</button>
+    </form>
+</div>
+</body>
+<script>
+    function toggleWorkout(button) {
+        var workoutId = button.getAttribute('data-id');
+        var selectedWorkouts = document.getElementById('selectedWorkouts');
+        var currentValues = selectedWorkouts.value ? selectedWorkouts.value.split(',') : [];
+
+        if (button.classList.contains('active')) {
+            button.classList.remove('active');
+            button.textContent = 'Add to Routine';
+            // Remove the workout id from the array
+            currentValues = currentValues.filter(id => id !== workoutId);
+        } else {
+            button.classList.add('active');
+            button.textContent = 'Added';
+            // Add the workout id to the array
+            currentValues.push(workoutId);
+        }
+        selectedWorkouts.value = currentValues.join(',');
+    }
+</script>
+{% endblock %}

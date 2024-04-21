@@ -1,13 +1,65 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block title %}Apex Athletics{% endblock %}
+{% block page %}Apex Athletics{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
+<style>
+    body {
+        background-image: url("https://images.unsplash.com/photo-1601422407692-ec4eeec1d9b3?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        justify-content: center; 
+        height: 100vh;
+        background-repeat: no-repeat;
+   }
+   .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+    .highlight-text {
+        font-size: 80px;
+        margin: 0;
+        padding: 0;
+        font-weight: 800;
+        white-space: nowrap;
+        text-align: center;
+        
+    }
+    .signup-button {
+    background-color: #ff0000; 
+    color: white; 
+    font-size: 22px; 
+    font-family: sans-serif;
+    border-radius: 3px;
+    width: 20%;
+    height: 45px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 20px;
+    text-align: center;
+    line-height: 45px;
+    }
+
+    .signup-button:hover {
+        background-color: #333333;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 20px;
+    }
+</style>
+<body>
+    <div class="centered">
+        <p class="highlight-text" style="color: rgb(255, 255, 255) !important;">unleash your inner potential</p>
+        <p class="highlight-text" style="color: rgb(255, 0, 0) !important;">Elevate Your Fitness</p>
+        <p style="font-size: 20px; color: rgb(255, 255, 255) !important; text-align: center;">Dont have an account?</p>
+        <a href="/Signup" class="signup-button">Sign Up</a>
+    </div>
     {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
+        <p>Welcome {{ current_user.username }}</p>
     {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+</body>
 {% endblock %}

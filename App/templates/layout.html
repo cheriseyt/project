@@ -14,16 +14,17 @@
   </head>
   <body>
     
-      <nav class="purple">
+      <nav class="red">
           <div class="nav-wrapper">
               <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
               <ul id="nav-mobile" class="left">
+                {% if is_authenticated %}
+                  <li><a href="/homepage">Workouts</a></li> 
+                  <li><a href="/routines">View Routines</a></li>
+                    <li><a href="/create_routine">Create Routines</a></li>
+                  {% else %}
                   <li><a href="/">Home</a></li>
-                  <li><a href="/users">Users Jinja</a></li>
-                  {% if is_authenticated %}
-                    <li><a href="/identify">Identify</a></li>
-                  {% endif %}
-                  <li><a href="/static/users">Users JS</a></li>
+                  {% endif %} 
               </ul>
               {% if is_authenticated %}
               <ul id="nav-mobile" class="right">
@@ -33,11 +34,9 @@
               <form class="right navbar-form" method="POST" action="/login" style="display: flex; flex-wrap: nowrap; align-items: center; margin-right: 10px;">
                   <div class="input-field" style="margin-right: 10px;">
                       <input placeholder="username" value="bob" name="username" type="text" class="validate" required>
-                      <label for="username">username</label>
                   </div>
                   <div class="input-field" style="margin-right: 10px;">
                       <input placeholder="password"value="bobpass" name="password" type="password" class="validate" required>
-                      <label for="password">Password</label>
                   </div>
                   <button type="submit" class="btn waves-effect waves-light">Login</button>
               </form>

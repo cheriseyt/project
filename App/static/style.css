@@ -1,3 +1,14 @@
-html {
-    padding: 0;
+.navbar-form .input-field input {
+    background-color: white !important;
+    border-radius: 10px !important; 
+    height: 35px !important;
+    width: 100% !important;
+}
+.nav-wrapper .btn {
+    background-color: rgb(3, 3, 3);
+    color: white; 
+    width: 30%;
+}
+.nav-wrapper {
+    background-color: rgb(255, 0, 0);
 }

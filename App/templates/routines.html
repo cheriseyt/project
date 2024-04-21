@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block title %}Apex Athletics{% endblock %}
+{% block page %}Routines{% endblock %}
+
+{% block content %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .card-header{
+        background-image: radial-gradient( at 88% 40%,
+            hsla(240, 15%, 9%, 1) 0px,transparent 85%),
+            radial-gradient(at 49% 30%, hsla(240, 15%, 9%, 1) 0px, transparent 85%),
+            radial-gradient(at 14% 26%, rgb(20, 20, 20) 0px, transparent 85%),
+            radial-gradient(at 41% 94%, rgb(3, 3, 3) 0px, transparent 85%);
+        color: white;
+        height: 60px;
+    }
+    .card-body {
+        background-image: radial-gradient(at 88% 40%,
+            hsla(240, 15%, 9%, 1) 0px,transparent 85% ),
+            radial-gradient(at 49% 30%, hsla(240, 15%, 9%, 1) 0px, transparent 85%),
+            radial-gradient(at 14% 26%, hsla(240, 15%, 9%, 1) 0px, transparent 85%),
+            radial-gradient(at 0% 64%, rgb(39, 37, 37) 0px, transparent 85%),
+            radial-gradient(at 41% 94%, rgb(43, 43, 43) 0px, transparent 85%),
+            radial-gradient(at 100% 99%, rgb(252, 59, 59) 0px, transparent 85%);
+        color: white;
+    }
+    .card-footer {
+        background: transparent;
+    }
+    .container{
+        max-width: none;
+    }
+    .html, body{
+        background-color: #000000;
+    }
+    .custom-btn {
+        background-image: linear-gradient(0deg,
+            rgb(97, 16, 16) 0%,
+            rgb(253, 40, 40) 100%);
+        color: white;  
+        width: 25%; 
+        padding: 8px 12px;
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        font-size: 14px; 
+        text-align: center; 
+        text-decoration: none;
+    }
+    @media (max-width: 768px) {
+    .custom-btn {
+        width: 25%; 
+        margin-top: 10px; 
+    }
+}
+</style>
+<body>
+<div class="container mt-4"">
+    <h2 class="mb-3 text-center" style="color: white;">{{username}}'s Routines</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for routine in routines %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Name: {{ routine.name }}</h5>
+                    <a href="{{ url_for('auth_views.view_workouts', routine_id=routine.id) }}" class="custom-btn">Add Workout</a>
+                </div>
+               <div class="card-body ">
+                    <p class="card-text">Description: {{ routine.description }}</p>
+                    {% for workout in routine.workouts %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ workout.name }}</h5>
+                            <p class="card-text">{{ workout.description }}</p>
+                            <form  action="{{ url_for('auth_views.remove_workout_from_routine_view', routine_id=routine.id, workout_id=workout.id) }}" method="post">
+                                <button type="submit" class="custom-btn">Remove </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+        {% else %}
+        <p style="color: white;">No routines to display.</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+{% endblock %}
+
