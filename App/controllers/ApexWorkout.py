@@ -3,7 +3,7 @@ from App.database import db
 import csv
 
 def create_workouts():
-    with open('/workspace/project/App/static/ApexWorkouts.csv', 'r', newline='', encoding='utf-8') as csvfile:
+    with open('./App/static/ApexWorkouts.csv', 'r', newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             new_workout = Workout(
